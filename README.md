@@ -1,4 +1,4 @@
-# wercker-docker-build
+# wercker-docker-push
 
 This wercker step just push your package to a [Docker](https://docs.docker.com/reference/commandline/cli/#push) registry.
 
@@ -9,7 +9,7 @@ This step must be used with a wercker box build with [Docker Support](http://dev
 
 | Release date | Step version | Docker version |
 | -------------| -------------| ---------------|
-| 2014-11-28   | 1.0.0        | 1.3.1          |
+| 2014-11-28   | 1.0.1        | 1.3.1          |
 
 
 ## Options
@@ -27,11 +27,11 @@ The following example push a [previously built](https://github.com/nhuray/wercke
 private [tutum.co](https://www.tutum.co/) registry :
 
 ```
-build:
+deploy:
   steps:
     ...
     - nhuray/docker-push:
-        image: tutum.co/nhuray/myimage/${WERCKER_GIT_COMMIT:0:7}
+        image: tutum.co/nhuray/myimage:${WERCKER_GIT_COMMIT:0:7}
         registry: tutum.co
         email: nicolas.huray@gmail.com
         password: *****
