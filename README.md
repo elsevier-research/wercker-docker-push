@@ -2,7 +2,7 @@
 
 This wercker step just push your package to a [Docker](https://docs.docker.com/reference/commandline/cli/#push) registry.
 
-This step must be used with a wercker box build with [Docker Support](http://devcenter.wercker.com/articles/docker)
+This step must be used with a wercker box built with [Docker Support](http://devcenter.wercker.com/articles/docker)
 
 
 ## Versions
