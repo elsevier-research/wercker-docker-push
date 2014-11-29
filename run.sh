@@ -29,17 +29,20 @@ type_exists() {
   return 1
 }
 
-# Check for Docker
+# Check Docker is installed
 if ! type_exists 'docker'; then
   fail 'Docker is not installed on this box.'
   info 'Please use a box with docker installed : http://devcenter.wercker.com/articles/docker'
   exit 1
 fi
 
-# Check a Dockerfile is present
-if [ ! -f 'Dockerfile' ]; then
-  fail 'A Dockerfile is required.'
-  info 'Please create a Dockerfile : https://docs.docker.com/reference/builder/'
+# Check the Docker image exists
+DOCKER_IMAGE="docker images | grep $WERCKER_DOCKER_PUSH_IMAGE"
+debug "$DOCKER_IMAGE"
+DOCKER_IMAGE_OUTPUT=$($DOCKER_IMAGE)
+if [[ $? -ne 0 ]]; then
+  fail "The docker image $WERCKER_DOCKER_PUSH_IMAGE was not found."
+  info 'Please build the image before pushing it : https://github.com/nhuray/wercker-docker-build'
   exit 1
 fi
 
@@ -56,7 +59,7 @@ DOCKER_LOGIN="docker login $USERNAME $PASSWORD $EMAIL $REGISTRY"
 debug "$DOCKER_LOGIN"
 DOCKER_LOGIN_OUTPUT=$($DOCKER_LOGIN)
 
-if [[ $? -ne 0 ]];then
+if [[ $? -ne 0 ]]; then
   warn $DOCKER_LOGIN_OUTPUT
   fail 'docker login failed';
 else
