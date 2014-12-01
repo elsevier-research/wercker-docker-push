@@ -3,6 +3,7 @@ set -e
 
 if [ -z "$WERCKER_DOCKER_PUSH_IMAGE" ]; then
   fail 'A Docker image is required.'
+  info 'Please build the image before pushing it : https://github.com/nhuray/wercker-docker-build'
 fi
 
 if [ -n "$WERCKER_DOCKER_PUSH_REGISTRY" ]; then
@@ -35,17 +36,6 @@ if ! type_exists 'docker'; then
   info 'Please use a box with docker installed : http://devcenter.wercker.com/articles/docker'
   exit 1
 fi
-
-# Check the Docker image exists
-DOCKER_IMAGE="docker images | grep $WERCKER_DOCKER_PUSH_IMAGE"
-debug "$DOCKER_IMAGE"
-DOCKER_IMAGE_OUTPUT=$($DOCKER_IMAGE)
-if [[ $? -ne 0 ]]; then
-  fail "The docker image $WERCKER_DOCKER_PUSH_IMAGE was not found."
-  info 'Please build the image before pushing it : https://github.com/nhuray/wercker-docker-build'
-  exit 1
-fi
-
 
 set +e
 

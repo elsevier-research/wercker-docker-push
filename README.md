@@ -9,6 +9,7 @@ This step must be used with a wercker box built with [Docker Support](http://dev
 
 | Release date | Step version | Docker version |
 | -------------| -------------| ---------------|
+| 2014-12-01   | 1.0.2        | 1.3.1          |
 | 2014-11-28   | 1.0.1        | 1.3.1          |
 
 
