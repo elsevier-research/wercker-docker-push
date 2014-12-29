@@ -46,7 +46,7 @@ EMAIL="--email $WERCKER_DOCKER_PUSH_EMAIL"
 # Login to the registry
 info 'login to the docker registry'
 DOCKER_LOGIN="docker login $USERNAME $PASSWORD $EMAIL $REGISTRY"
-debug "$DOCKER_LOGIN"
+debug `echo $DOCKER_LOGIN | tr "$PASSWORD" '***********'`
 DOCKER_LOGIN_OUTPUT=$($DOCKER_LOGIN)
 
 if [[ $? -ne 0 ]]; then
